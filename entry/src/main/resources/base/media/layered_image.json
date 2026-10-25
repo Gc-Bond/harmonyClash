@@ -1,0 +1,7 @@
+{
+  "layered-image":
+  {
+    "background" : "$media:harmonyclash_background",
+    "foreground" : "$media:harmonyclash_foreground"
+  }
+}

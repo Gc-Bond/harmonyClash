@@ -1,0 +1,24 @@
+ref/
+build/
+
+# DevEco / hvigor
+.hvigor/
+.idea/
+oh_modules/
+# DevEco 预览器生成的临时源码与编译缓存，不纳入版本控制。
+**/.preview/
+**/build/
+**/.cxx/
+*.hap
+*.app
+local.properties
+build-profile.local.json5
+# 本机签名材料与私有环境变量。
+*.p12
+*.p7b
+*.cer
+*.pem
+.env
+.env.*
+.DS_Store
+**/BuildProfile.ets

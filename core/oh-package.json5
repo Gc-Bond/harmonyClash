@@ -1,0 +1,11 @@
+{
+  "name": "core",
+  "version": "1.0.0",
+  "description": "HarmonyClash VPN core bridge",
+  "main": "Index.ets",
+  "author": "",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "libcore.so": "file:./src/main/cpp/types/libcore"
+  }
+}

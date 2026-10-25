@@ -1,0 +1,11 @@
+{
+  "modelVersion": "5.0.0",
+  "name": "harmonyclash",
+  "version": "1.0.0",
+  "description": "HarmonyOS NEXT Clash client",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

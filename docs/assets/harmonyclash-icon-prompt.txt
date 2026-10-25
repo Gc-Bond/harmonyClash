@@ -1,0 +1,43 @@
+HarmonyClash 应用图标生成记录
+作者：gc
+创建时间：2026-10-25 22:48:00
+
+工具模式
+- 使用内置 image_gen.imagegen，未使用 CLI/API fallback。
+- 请求参数：transparent_background=true；新图生成，不提供参考图。
+- 生成分类：logo-brand。
+
+最终原始提示词（以下为实际发送内容，保持原文）
+Use case: logo-brand. Asset type: production launcher icon foreground for HarmonyClash, a HarmonyOS VPN/network routing app. Create one original, exceptionally clean and recognizable abstract network-portal emblem: two bold smooth interlocking ribbon arcs form a continuous open circular tunnel with a precise diagonal passage through the center, expressing protected connection and fast flow. Strong simple silhouette, balanced negative space, rounded geometric ends. Premium flat vector-like design with only an extremely restrained mint edge accent, no glossy 3D. Colors: the main emblem is warm near-white #F4FFFC with a small mint #65C9BD accent; it will be placed on a deep teal #0E766E background. Composition: square 1024x1024 transparent canvas, emblem precisely centered and entirely contained within the central 500x500 pixel square, with generous truly transparent padding on all four sides; no colored background, no enclosing app tile, no outer shield, no tiny details. No letters, words, typography, labels, captions, watermark, border, texture, mockup or presentation board. Output only the isolated transparent emblem at full resolution, sharp smooth antialiased edges. It must be immediately readable at a 48px launcher size and survive a circular system mask.
+
+原始生成文件
+<本机临时生成文件>
+原图为 1254×1254 RGBA PNG；项目引用最终导出文件，不依赖该机器上的生成目录。
+
+最终素材与引用
+- AppScope/resources/base/media/harmonyclash_foreground.png：1024×1024 RGBA 透明前景。
+- AppScope/resources/base/media/harmonyclash_background.png：1024×1024 全不透明背景，sRGB #0E766E。
+- entry/src/main/resources/base/media/harmonyclash_foreground.png：与 AppScope 前景内容一致。
+- entry/src/main/resources/base/media/harmonyclash_background.png：与 AppScope 背景内容一致。
+- entry/src/main/resources/base/media/harmonyclash_start.png：256×256 RGBA，圆角背景加同一前景的启动图。
+- AppScope 和 entry 的 layered_image.json 均引用 harmonyclash_background/harmonyclash_foreground。
+- entry/src/main/module.json5 的 startWindowIcon 引用 $media:harmonyclash_start。
+
+图层导出说明
+1. 使用 macOS sips 将生成原图等比缩放至 1024×1024；保留 PNG alpha，不重绘、不裁切符号。
+   sips -z 1024 1024 <生成原图> --out AppScope/resources/base/media/harmonyclash_foreground.png
+2. 使用本地 CoreGraphics 的 sRGB 位图上下文输出纯色 #0E766E 背景，整张保持 alpha=255；桌面圆形/圆角裁切交给鸿蒙系统。
+3. 启动图在 256×256 sRGB 位图上下文中，先以边长 24% 的圆角半径裁切，再按整张画布依次绘制背景和前景；不改变符号相对位置和比例。
+4. 将 AppScope 的前景、背景逐字节复制到 entry；两份对应资源的 SHA-256 相同。
+5. 旧默认图标资源保留，现有引用改为新资源名。
+
+资源验证
+- 前景 alpha 范围为 0..255；可见图案（alpha>=16）边界为 (238,237)-(786,799)。
+- 可见图案距画布中心的最大半径约为边长的 28.4%，圆形遮罩内保留充分余量。
+- 背景 alpha 全部为 255，中心像素为 RGBA (14,118,110,255)。
+- 已查看生成原图、实际图层合成的圆形/圆角预览、256 启动图和 48 像素预览。
+- 启动图不超过本机 DevEco 建议的 256×256 尺寸；最终桌面展示由真机安装验证。
+
+最终资源 SHA-256
+foreground: f1aca1cb4b657b8bd9aa8aae3a63ff105f5b36bbb605bf86c2de0a3275d89915
+background: 790359dffb32ce42d0b9cdbfe8877923cc6bdea14e0c33532c57ab70ae7f72fb
