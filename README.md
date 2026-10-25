@@ -30,6 +30,12 @@ node /path/to/DevEco-Studio.app/Contents/tools/hvigor/bin/hvigorw.js --mode modu
 
 真机安装需要在 DevEco Studio 中配置自己的 HarmonyOS 签名。公开的 `build-profile.json5` 不含签名凭据；不要提交证书、密钥、订阅 URL 或本机生成的配置。
 
+## 未上架时如何使用
+
+目前确认可行的是开发者自行构建和安装：克隆源码、按开发指南编译 Go 内核，在 [DevEco Studio 中为自己的设备生成调试签名](https://developer.huawei.com/consumer/cn/doc/doccenter-deveco-studio/ide-signing-auto)，开启手机的 USB 或无线调试，再使用 DevEco Studio 的 Run，或用 `hdc -t <设备ID> install -r <已签名HAP路径>` 安装。华为的[真机调试说明](https://developer.huawei.com/consumer/cn/forum/topic/0201202347933643713)也给出了 USB 和无线调试流程。
+
+这不是普通用户点开 GitHub Releases 下载 HAP 就能保证安装的方案：调试签名涉及目标设备，仓库也不包含可直接安装的已签名包。尚未验证在所有商用 HarmonyOS 设备上通过其他渠道分发和直接安装，因此目前不提供通用安装包。
+
 ## 来源与许可
 
 本项目的 N-API 桥接与内核接入参考并改编自 [FlClash-ohos](https://github.com/tljk/FlClash-ohos)，并使用其所集成的 Clash.Meta Go 内核；参考项目采用 GPL-3.0。本仓库代码按 [GPL-3.0-only](LICENSE) 发布。第三方组件保留各自的版权和许可声明。
